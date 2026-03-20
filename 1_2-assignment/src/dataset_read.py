@@ -8,5 +8,9 @@ df = pd.read_csv(dataset1)
 df.head()
 df.info()
 df.describe()
+<<<<<<< HEAD
 
 print("Hello")
+=======
+#Dataset read
+>>>>>>> 0cc6a8dd939c45802f4bb4951a426a8925812b14
