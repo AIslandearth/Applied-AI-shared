@@ -3,28 +3,38 @@ import matplotlib as plt
 import numpy as np
 
 class DatasetPreparation():
-    def __init__(self, datasetIn, datasetOut, column, sep):
+    def __init__(self, datasetIn, datasetOut, sep, column1, column2=None):
         self.datasetIn = datasetIn
         self.datasetOut = datasetOut
-        self.column = column
+        self.columns = [column1, column2] if not column2 is None else [column1]
         self.sep = sep
         self.df = None
         self.dfOut = None
     def cleanup(self):
-        self.df = pd.read_csv(self.datasetIn, sep=self.sep, usecols=[self.column])
+        self.df = pd.read_csv(self.datasetIn, sep=self.sep, usecols=self.columns)
         
-        self.df = self.df.sort_values(by=self.column).reset_index(drop=True)
+        #self.df = self.df.sort_values(by=self.column).drop_duplicates(inplace=True).reset_index(drop=True)
+        self.df = self.df.reset_index(drop=True)
         
-        valuesAsNp = self.df[self.column].values
-        print(valuesAsNp)
+        valuesAsNp = self.df[self.columns].values
+        #print(valuesAsNp)
         
-        quadGroups = valuesAsNp.reshape(-1, 4)
-        print(quadGroups)
+        # drop the remaining ones if less than four indexes remaining for calculating mean/avg
+        n = (len(valuesAsNp) // 4) * 4
         
-        meansAsNp = np.round(quadGroups.mean(axis=1), 1)
-        print(meansAsNp)
+        if len(self.columns) == 1:
+            # 15 min
+            oneHour = np.round(valuesAsNp[:n].reshape(-1, 4).mean(axis=1), 1)
+            self.dfOut = pd.DataFrame({'1 hour mean': oneHour})
+        else:
+            # already 1h
+            oneHour = np.round(valuesAsNp, 1)
+            self.dfOut = pd.DataFrame({'1 hour mean': oneHour}, columns=self.columns)
         
-        self.dfOut = pd.DataFrame({'1H mean': meansAsNp})
+        print(oneHour)
+        
+        #sort_values(by=self.columns)
+        
         self.dfOut.to_csv(self.datasetOut, index=False, sep=self.sep)
         #np.savetxt(self.datasetOut, meansAsNp, delimiter=self.sep, header='1H mean', comments='')
         
