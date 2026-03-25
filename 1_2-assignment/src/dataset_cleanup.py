@@ -29,7 +29,7 @@ class DatasetPreparation():
         else:
             # already 1h
             oneHour = np.round(valuesAsNp, 1)
-            self.dfOut = pd.DataFrame({'1 hour mean': oneHour}, columns=self.columns)
+            self.dfOut = pd.DataFrame(oneHour, columns=self.columns)
         
         print(oneHour)
         
