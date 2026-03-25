@@ -20,14 +20,15 @@ dataset3 = "1_2-assignment/Datasets/fingrid/SmallScaleElectricitySurplus_2026-02
 # print("Describe: ")
 # print(df.describe())
 
-dp1 = DatasetPreparation(dataset1, "productionDataSet.csv", ';', 'Electricity production in Finland')
+dp1 = DatasetPreparation(dataset1, "productionDataSet.csv", ';', 'startTime', 'Electricity production in Finland')
 dp1.cleanup()
 
-dp2 = DatasetPreparation(dataset2, "consumptionDataSet.csv", ';', 'Electricity consumption in Finland')
+dp2 = DatasetPreparation(dataset2, "consumptionDataSet.csv", ';', 'startTime', 'Electricity consumption in Finland')
 dp2.cleanup()
 
 dp3 = DatasetPreparation(dataset3, "surplusDataSet.csv",
-                         ';',
+                        ';',
+                        'startTime',
                         'Small-scale electricity surplus production by production type at accounting points in Finnish distribution networks',
                         'ProductionType'
                         )
