@@ -26,8 +26,9 @@ dp1.cleanup()
 dp2 = DatasetPreparation(dataset2, "consumptionDataSet.csv", ';', 'Electricity consumption in Finland')
 dp2.cleanup()
 
-#dp3 = DatasetPreparation(dataset3, "modifiedDataSet.csv",
-#                        'Small-scale electricity surplus production by production type at accounting points in Finnish distribution networks',
-#                        sep=';',
-#                        )
-#dp3.cleanup()
+dp3 = DatasetPreparation(dataset3, "surplusDataSet.csv",
+                         ';',
+                        'Small-scale electricity surplus production by production type at accounting points in Finnish distribution networks',
+                        'ProductionType'
+                        )
+dp3.cleanup()
